@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <ctype.h>
+
+// Function prototypes
+float calculateFare(char travelClass);
+float checkBaggage(char travelClass, float baggageWeight);
+void printTicket(char travelClass, float baggageWeight, float baseFare, float excessFee);
+
+void printTicket(char travelClass, float baggageWeight, float baseFare, float excessFee) {
+    float totalFare = baseFare + excessFee;
+
+    // Replace labels/formatting below to match Module 7, Problem 7 exactly
+    printf("\n--- BOARDING SUMMARY ---\n");
+    printf("Class: %c\n", toupper(travelClass));
+    printf("Baggage Weight: %.2f kg\n", baggageWeight);
+    printf("Base Fare: %.2f\n", baseFare);
+    printf("Excess Baggage Fee: %.2f\n", excessFee);
+    printf("Total Fare: %.2f\n", totalFare);
+}
+int main() {
+    char travelClass;
+    float baggageWeight;
+
+    // Match your Module 7 input prompts
+    printf("Enter travel class (E/B): ");
+    scanf(" %c", &travelClass);
+
+    printf("Enter baggage weight (kg): ");
+    scanf("%f", &baggageWeight);
+
+    float baseFare = calculateFare(travelClass);
+    float excessFee = checkBaggage(travelClass, baggageWeight);
+    printTicket(travelClass, baggageWeight, baseFare, excessFee);
+
+    return 0;
+}
+
+float calculateFare(char travelClass) {
+    char cls = toupper(travelClass);
+
+    if (cls == 'B') {          // Business Class (adjust class letters if needed)
+        return 6500.00;
+    } else {                   // Economy Class
+        return 2500.00;
+    }
+}
+
+float checkBaggage(char travelClass, float baggageWeight) {
+    char cls = toupper(travelClass);
+    float allowance = (cls == 'B') ? 30.0 : 20.0; // Replace with Module 7 allowance limits
+    float ratePerKg = 200.0;                      // Replace with Module 7 excess fee rate
+
+    if (baggageWeight > allowance) {
+        return (baggageWeight - allowance) * ratePerKg;
+    }
+    return 0.0;
+}
+
+
